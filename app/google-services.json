@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "404985829940",
+    "project_id": "bdchatrealtime",
+    "storage_bucket": "bdchatrealtime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404985829940:android:54693b7b789bae7a27c861",
+        "android_client_info": {
+          "package_name": "twin.developers.projectmqtt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrksZiXTB1vDt-7mb9ipuZ9l6KnELmcRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
