@@ -28,28 +28,23 @@ public class MainActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        // Inicializar las vistas
         texto = findViewById(R.id.txtMessage);
         btnEnviar = findViewById(R.id.btnPublish);
         receivedMessagesTextView = findViewById(R.id.receivedMessagesTextView);
 
-        // Inicializar el gestor MQTT
+
         mqttManager = new Mqtt(getApplicationContext(), new Mqtt.MqttMessageListener() {
             @Override
             public void onMessageReceived(String message) {
-                // Manejar el mensaje recibido
                 runOnUiThread(() -> {
-                    // Agregar el mensaje a la vista de mensajes recibidos
                     appendToReceivedMessages(message);
 
-                    // Mostrar notificación solo cuando se recibe un mensaje
                     showNotification("Nuevo mensaje", message);
                 });
             }
         });
         mqttManager.connectToMqttBroker();
 
-        // Configurar el evento de clic para el botón de enviar
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,39 +52,32 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
     }
-
-    // Método para agregar el mensaje recibido a la vista de mensajes recibidos
     private void appendToReceivedMessages(String message) {
         receivedMessagesTextView.append(message + "\n");
     }
 
-    // Método para enviar el mensaje
     private void sendMessage() {
         String messageToSend = texto.getText().toString();
         if (!messageToSend.isEmpty()) {
             mqttManager.publishMessage(messageToSend);
-            texto.setText("");  // Limpiar el campo de texto después de enviar
+            texto.setText("");
         }
     }
 
-    // Método para mostrar una notificación
     private void showNotification(String title, String message) {
         // Configurar el NotificationManager
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Verificar si la versión de Android es compatible con canales de notificación
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("channel_id", "Channel Name", NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Configurar la intención para abrir MainActivity3 al hacer clic en la notificación
         Intent intent = new Intent(this, MainActivity3.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Configurar la notificación con vibración similar a WhatsApp
-        long[] pattern = {0, 500, 100, 500};  // Patrón de vibración: espera 0ms, vibra 500ms, espera 100ms, vibra 500ms
+        long[] pattern = {0, 500, 100, 500};
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
                 .setSmallIcon(R.drawable.ic_notification_background)
                 .setContentTitle(title)
@@ -97,9 +85,9 @@ public class MainActivity3 extends AppCompatActivity {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setVibrate(pattern)
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true);  // Cerrar la notificación al hacer clic en ella
+                .setAutoCancel(true);
 
-        // Mostrar la notificación
+
         notificationManager.notify(1, builder.build());
     }
 }

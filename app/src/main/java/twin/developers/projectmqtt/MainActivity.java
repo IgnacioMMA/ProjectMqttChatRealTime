@@ -26,7 +26,7 @@ import twin.developers.projectmqtt.MainActivity3;
 import twin.developers.projectmqtt.R;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity"; // Etiqueta para los mensajes de registro
+    private static final String TAG = "MainActivity";
     private Button btnSesion, btnRegistrarse;
     private EditText txtvCorreo, txtvContra;
     private DatabaseReference databaseReference;

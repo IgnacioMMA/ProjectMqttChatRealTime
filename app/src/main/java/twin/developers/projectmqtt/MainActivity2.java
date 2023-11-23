@@ -57,7 +57,6 @@ public class MainActivity2 extends AppCompatActivity {
                         usuarioMap.put("correo", Correo);
                         usuarioMap.put("contraseña", hashedPassword);
 
-                        // Reemplazar puntos en el correo con guiones bajos
                         String correoCodificado = Correo.replace(".", "_");
 
                         databaseReference.child(correoCodificado).setValue(usuarioMap);
