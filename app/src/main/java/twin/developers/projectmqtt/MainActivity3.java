@@ -16,8 +16,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
-import twin.developers.projectmqtt.R;
-
 public class MainActivity3 extends AppCompatActivity {
 
     private Mqtt mqttManager;
